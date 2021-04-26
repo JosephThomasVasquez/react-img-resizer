@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 
 const FileComponent = () => {
-    
   const [files, setFiles] = useState([]);
 
   const handleChange = (e) => {
     console.log("files event >", e.target.files);
-    console.log("files >", files.length);
 
-    setFiles([...e.target.files]);
+    const filesArray = Array.from(e.target.files);
+
+    console.log(typeof filesArray);
+    console.log("filesArray >", filesArray);
+
+
+    // Create blob URL to use as image source and add files to state
+    filesArray.forEach((file) => {
+      const fileUrl = URL.createObjectURL(file);
+      file.url = fileUrl;
+      console.log(file);
+      setFiles([...filesArray, file]);
+      console.log("filesArray", filesArray);
+    });
 
     console.log("files >", files);
-    console.log(files[0])
   };
 
   return (
@@ -30,9 +40,16 @@ const FileComponent = () => {
         <input type="text" id="file-selector-name" placeholder="Filename" />
       </form>
       <h3>{files && `${files.length} files`}</h3>
-      <ul>{files && files.map((file) => (
-          <li key={file.name}>{file.name}</li>
-      ))}</ul>
+      <ul>
+        {files &&
+          files.map((file) => (
+            <li key={file.name}>
+              <div className="file-preview">
+                <img className="img-preview" src={file.url} />
+              </div>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };
