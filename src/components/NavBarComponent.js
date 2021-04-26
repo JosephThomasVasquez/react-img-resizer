@@ -2,7 +2,6 @@ import React from "react";
 
 const NavBarComponent = () => {
   return (
-    <div>
       <nav className="header">
         <ul>
           <li>
@@ -17,7 +16,6 @@ const NavBarComponent = () => {
           </li>
         </ul>
       </nav>
-    </div>
   );
 };
 
