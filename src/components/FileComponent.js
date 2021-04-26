@@ -8,19 +8,16 @@ const FileComponent = () => {
 
     const filesArray = Array.from(e.target.files);
 
-    console.log(typeof filesArray);
-    console.log("filesArray >", filesArray);
-
+    // console.log(typeof filesArray);
+    // console.log("filesArray >", filesArray);
 
     // Create blob URL to use as image source and add files to state
     filesArray.forEach((file) => {
       const fileUrl = URL.createObjectURL(file);
       file.url = fileUrl;
-      console.log(file);
-      setFiles([...filesArray, file]);
-      console.log("filesArray", filesArray);
+      setFiles([...filesArray]);
     });
-
+    console.log("filesArray", filesArray);
     console.log("files >", files);
   };
 
@@ -46,6 +43,9 @@ const FileComponent = () => {
             <li key={file.name}>
               <div className="file-preview">
                 <img className="img-preview" src={file.url} />
+                <span>{file.name}</span>
+                <span>{file.type}</span>
+                <span>{file.size}</span>
               </div>
             </li>
           ))}
