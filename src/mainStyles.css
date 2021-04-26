@@ -79,6 +79,11 @@ input[type="text"]:focus:hover {
   transition:all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.image-form-container {
+  margin: 0 auto;
+  text-align: center;
+}
+
 .file-selector-label {
     display: inline-block;
     max-height: 20px;
