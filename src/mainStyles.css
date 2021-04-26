@@ -44,6 +44,10 @@ a {
 }
 
 
+.title {
+  text-align: center;
+}
+
 /* FORM */
 
 .btn-form {

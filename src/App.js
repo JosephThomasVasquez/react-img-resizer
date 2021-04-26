@@ -4,6 +4,7 @@ function App() {
   return (
     <div className="App">
       <NavBarComponent />
+      <h1 className="title">Image Resizer</h1>
     </div>
   );
 }
