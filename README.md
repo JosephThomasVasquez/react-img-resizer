@@ -1,2 +1,2 @@
-# react-img-resizer
-React Image Resizer
+# React Image Resizer
+
