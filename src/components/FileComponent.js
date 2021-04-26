@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CanvasComponent from './CanvasComponent';
 
 const FileComponent = () => {
   const [files, setFiles] = useState([]);
@@ -37,6 +38,7 @@ const FileComponent = () => {
         <input type="text" id="file-selector-name" placeholder="Filename" />
       </form>
       <h3>{files && `${files.length} files`}</h3>
+        {files && <CanvasComponent file={files[0]}/>}
       <ul>
         {files &&
           files.map((file) => (
