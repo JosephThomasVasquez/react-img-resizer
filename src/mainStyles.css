@@ -1,5 +1,5 @@
 :root {
-  --primary-color: rgb(89, 0, 255, 1);
+  --primary-color: hsl(261, 100%, 50%);
 }
 
 body {
@@ -130,5 +130,5 @@ input[type="text"]:focus:hover {
 }
 
 .img-file {
-  max-width: 400px;
+  max-width: 200px;
 }

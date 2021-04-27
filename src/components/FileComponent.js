@@ -5,12 +5,8 @@ const FileComponent = () => {
   const [files, setFiles] = useState([]);
 
   const handleChange = (e) => {
-    console.log("files event >", e.target.files);
 
     const filesArray = Array.from(e.target.files);
-
-    // console.log(typeof filesArray);
-    // console.log("filesArray >", filesArray);
 
     // Create blob URL to use as image source and add files to state
     filesArray.forEach((file) => {
@@ -18,8 +14,8 @@ const FileComponent = () => {
       file.url = fileUrl;
       setFiles([...filesArray]);
     });
-    console.log("filesArray", filesArray);
-    console.log("files >", files);
+    // console.log("filesArray", filesArray);
+    // console.log("files >", files);
   };
 
   return (
