@@ -10,8 +10,24 @@ const CanvasComponent = ({ file }) => {
   //   console.log(file)
   const canvasRef = useRef(null);
 
+  const setDpi = () => {
+    let canvasStyleWidth = +getComputedStyle(canvasRef.current)
+      .getPropertyValue("width")
+      .slice(0, -2);
+    let canvasStyleHeight = +getComputedStyle(canvasRef.current)
+      .getPropertyValue("height")
+      .slice(0, -2);
+
+    canvasRef.current.setAttribute("width", canvasStyleWidth * dpi);
+    canvasRef.current.setAttribute("height", canvasStyleHeight * dpi);
+    console.log(
+      "canvasStyleWidth/Height",
+      canvasStyleWidth,
+      canvasStyleHeight
+    );
+  };
+
   const updateCanvas = (ctx, img, width, height) => {
-    ctx.clearRect(0, 0, width, height);
 
     // Get image aspectRatio from img.width / img.height
     const aspectRatio = img.width / img.height;
@@ -25,10 +41,12 @@ const CanvasComponent = ({ file }) => {
     // Set the center of the canvas based on image dimensions after scaling
     const centerWidth = width / 2 - newWidth / 2;
     const centerHeight = height / 2 - newHeight / 2;
+    ctx.clearRect(0, 0, width, height);
 
     ctx.drawImage(img, centerWidth, centerHeight, newWidth, newHeight);
   };
 
+  // Scale the image
   const scaleImageHandler = (e) => {
     setImageScale(e.target.value * 0.01);
   };
@@ -36,11 +54,13 @@ const CanvasComponent = ({ file }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
+    
 
     const { width } = context.canvas;
     const { height } = context.canvas;
 
     if (file) {
+        setDpi();
       let reader = new FileReader();
       //   console.log("reader", reader);
 
@@ -62,18 +82,7 @@ const CanvasComponent = ({ file }) => {
 
   return (
     <div>
-      {file && (
-        <div>
-          <img
-            className="img-file"
-            src={file && file.url}
-            alt={file && file.name}
-          />
-          <p>{file.size}</p>
-        </div>
-      )}
-
-      <br></br>
+      
       <label htmlFor="scaleImage">Scale</label>
       <input
         type="range"
@@ -85,6 +94,17 @@ const CanvasComponent = ({ file }) => {
         onChange={scaleImageHandler}
       />
       <canvas ref={canvasRef} className="canvas-preview"></canvas>
+      <br></br>
+      {file && (
+        <div>
+          <img
+            className="img-file"
+            src={file && file.url}
+            alt={file && file.name}
+          />
+          <p>{file.size}</p>
+        </div>
+      )}
     </div>
   );
 };
