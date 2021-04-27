@@ -121,12 +121,23 @@ input[type="text"]:focus:hover {
     object-fit: contain;
 }
 
+/* CANVAS */
+
 .canvas-preview {
     min-width: 400px;
     min-height: 400px;
     background-color: white;
+    border: 2px solid var(--primary-color);
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.slider-scale {
+  display: block;
+  width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .img-file {

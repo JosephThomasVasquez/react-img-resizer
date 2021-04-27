@@ -9,23 +9,28 @@ const CanvasComponent = ({ file }) => {
   const updateCanvas = (ctx, img, width, height) => {
     ctx.clearRect(0, 0, width, height);
 
-    console.log('imgW, imgH > ', img.width, img.height);
-
+    // Get image aspectRatio from img.width / img.height
     const aspectRatio = img.width / img.height;
-    console.log('aspectRatio >', aspectRatio);
+    // console.log('aspectRatio >', aspectRatio);
 
-    const centerWidth = (width / 2) - (img.width / 2);
-    const centerHeight = (height / 2) - (img.height / 2);
+    // Set a scale factor and resize the iamge
+    let scale = 0.035;
+    const newWidth = (img.height * aspectRatio) * scale;
+    const newHeight = (img.width / aspectRatio) * scale;
 
-    ctx.drawImage(img, centerHeight, centerHeight, img.width, img.height);
+    // Set the center of the canvas based on image dimensions after scaling
+    const centerWidth = (width / 2) - (newWidth / 2);
+    const centerHeight = (height / 2) - (newHeight / 2);
+
+    ctx.drawImage(img, centerWidth, centerHeight, newWidth, newHeight);
   };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    const canvasWidth = context.canvas.width;
-    const canvasHeight = context.canvas.height;
+    const {width} = context.canvas;
+    const {height} = context.canvas;
 
     if (file) {
       let reader = new FileReader();
@@ -34,7 +39,7 @@ const CanvasComponent = ({ file }) => {
       reader.onload = (e) => {
         let imgFile = new Image();
         imgFile.onload = () => {
-          updateCanvas(context, imgFile, canvasWidth, canvasHeight);
+          updateCanvas(context, imgFile, width, height);
         };
         imgFile.src = e.target.result;
       };
@@ -51,6 +56,7 @@ const CanvasComponent = ({ file }) => {
     <div>
       <img className="img-file" src={file && file.url} alt={file && file.name} />
       <br></br>
+      <input type="range" name="scaleImage" id="scale-img" className="slider-scale"/>
       <canvas ref={canvasRef} className="canvas-preview"></canvas>
     </div>
   );
