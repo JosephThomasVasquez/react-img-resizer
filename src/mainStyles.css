@@ -90,7 +90,7 @@ input[type="text"]:focus:hover {
     background-color: var(--primary-color);
     color: white;
     padding: 10px;
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px;
     border: 2px solid var(--primary-color);
     transition:all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -102,7 +102,7 @@ input[type="text"]:focus:hover {
 
 #file-selector-name {
   display: inline-block;
-  max-height: 20px;
+  
   padding: 11px;
   border: 2px dashed var(--primary-color);
   border-radius: 0 5px 5px 0;

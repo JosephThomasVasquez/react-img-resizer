@@ -9,9 +9,6 @@ const CanvasComponent = ({ file }) => {
     dpi: window.devicePixelRatio,
   });
 
-  //   const dpi = window.devicePixelRatio;
-  //   console.log("dpi >", dpi);
-
   const canvasRef = useRef(null);
 
 //   const setDpi = () => {

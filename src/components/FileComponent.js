@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import CanvasComponent from './CanvasComponent';
+import CanvasComponent from "./CanvasComponent";
 
 const FileComponent = () => {
   const [files, setFiles] = useState([]);
 
   const handleChange = (e) => {
-
     const filesArray = Array.from(e.target.files);
 
     // Create blob URL to use as image source and add files to state
@@ -31,23 +30,24 @@ const FileComponent = () => {
             multiple
           />
         </label>
-        <input type="text" id="file-selector-name" placeholder="Filename" />
+        <div id={files.length > 0 && "file-selector-name"}>
+          <ul>
+            {files &&
+              files.map((file) => (
+                <li key={file.name}>
+                  <div className="file-preview">
+                    <img className="img-preview" src={file.url} />
+                    <span>{file.name}</span>
+                    <span>{file.type}</span>
+                    <span>{file.size}</span>
+                  </div>
+                </li>
+              ))}
+          </ul>
+        </div>
       </form>
       <h3>{files && `${files.length} files`}</h3>
-        {files && <CanvasComponent file={files[0]}/>}
-      <ul>
-        {files &&
-          files.map((file) => (
-            <li key={file.name}>
-              <div className="file-preview">
-                <img className="img-preview" src={file.url} />
-                <span>{file.name}</span>
-                <span>{file.type}</span>
-                <span>{file.size}</span>
-              </div>
-            </li>
-          ))}
-      </ul>
+      {files && <CanvasComponent file={files[0]} />}
     </div>
   );
 };
