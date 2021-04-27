@@ -7,7 +7,8 @@ const CanvasComponent = ({ file }) => {
   const canvasRef = useRef(null);
 
   const updateCanvas = (ctx, img, width, height) => {
-    ctx.drawImage(img, 0, 0, width, height);
+    ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(img, 0, 0, img.width * 0.05, img.height * 0.05);
   };
 
   useEffect(() => {
