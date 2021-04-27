@@ -6,13 +6,16 @@ const CanvasComponent = ({ file }) => {
   //   console.log(file)
   const canvasRef = useRef(null);
 
-  const updateCanvas = (ctx, img) => {
-    ctx.drawImage(img, 0, 0);
+  const updateCanvas = (ctx, img, width, height) => {
+    ctx.drawImage(img, 0, 0, width, height);
   };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
+
+    const canvasWidth = context.canvas.width;
+    const canvasHeight = context.canvas.height;
 
     if (file) {
       let reader = new FileReader();
@@ -21,7 +24,7 @@ const CanvasComponent = ({ file }) => {
       reader.onload = (e) => {
         let imgFile = new Image();
         imgFile.onload = () => {
-          updateCanvas(context, imgFile);
+          updateCanvas(context, imgFile, canvasWidth, canvasHeight);
         };
         imgFile.src = e.target.result;
       };
