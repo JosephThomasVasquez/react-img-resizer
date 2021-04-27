@@ -8,7 +8,13 @@ const CanvasComponent = ({ file }) => {
 
   const updateCanvas = (ctx, img, width, height) => {
     ctx.clearRect(0, 0, width, height);
-    ctx.drawImage(img, 0, 0, img.width * 0.05, img.height * 0.05);
+
+    console.log('imgW, imgH > ', img.width, img.height);
+
+    const centerWidth = (width / 2) - (img.width / 2);
+    const centerHeight = (height / 2) - (img.height / 2);
+
+    ctx.drawImage(img, centerHeight, centerHeight, img.width, img.height);
   };
 
   useEffect(() => {
@@ -40,7 +46,8 @@ const CanvasComponent = ({ file }) => {
 
   return (
     <div>
-      <img className="img-file" src={file && file.url} alt="file.name" />
+      <img className="img-file" src={file && file.url} alt={file && file.name} />
+      <br></br>
       <canvas ref={canvasRef} className="canvas-preview"></canvas>
     </div>
   );
