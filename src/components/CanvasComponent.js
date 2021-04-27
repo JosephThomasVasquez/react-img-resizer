@@ -3,32 +3,43 @@ import React, { useState, useEffect, useRef } from "react";
 const CanvasComponent = ({ file }) => {
   const [imageFile, setImageFile] = useState({});
   const [imageScale, setImageScale] = useState(100);
+  const [canvasSize, setCanvasSize] = useState({
+    width: 400,
+    height: 300,
+    dpi: window.devicePixelRatio,
+  });
 
-  const dpi = window.devicePixelRatio;
-  console.log("dpi >", dpi);
+  //   const dpi = window.devicePixelRatio;
+  //   console.log("dpi >", dpi);
 
-  //   console.log(file)
   const canvasRef = useRef(null);
 
-  const setDpi = () => {
-    let canvasStyleWidth = +getComputedStyle(canvasRef.current)
-      .getPropertyValue("width")
-      .slice(0, -2);
-    let canvasStyleHeight = +getComputedStyle(canvasRef.current)
-      .getPropertyValue("height")
-      .slice(0, -2);
+//   const setDpi = () => {
+//     let canvasStyleWidth = getComputedStyle(canvasRef.current)
+//       .getPropertyValue("width")
+//       .slice(0, -2);
+//     console.log(
+//       "computedStyle",
+//       getComputedStyle(canvasRef.current).getPropertyValue("width")
+//     );
+//     let canvasStyleHeight = getComputedStyle(canvasRef.current)
+//       .getPropertyValue("height")
+//       .slice(0, -2);
 
-    canvasRef.current.setAttribute("width", canvasStyleWidth * dpi);
-    canvasRef.current.setAttribute("height", canvasStyleHeight * dpi);
-    console.log(
-      "canvasStyleWidth/Height",
-      canvasStyleWidth,
-      canvasStyleHeight
-    );
-  };
+//     canvasRef.current.setAttribute("width", canvasStyleWidth * canvasSize.dpi);
+//     canvasRef.current.setAttribute(
+//       "height",
+//       canvasStyleHeight * canvasSize.dpi
+//     );
+//     // console.log("canvasStyleWidth/Height", canvasStyleWidth, canvasStyleHeight);
+//   };
+
+//   if (canvasRef.current) {
+//     // setDpi();
+//   }
 
   const updateCanvas = (ctx, img, width, height) => {
-
+    ctx.clearRect(0, 0, width, height);
     // Get image aspectRatio from img.width / img.height
     const aspectRatio = img.width / img.height;
 
@@ -41,7 +52,6 @@ const CanvasComponent = ({ file }) => {
     // Set the center of the canvas based on image dimensions after scaling
     const centerWidth = width / 2 - newWidth / 2;
     const centerHeight = height / 2 - newHeight / 2;
-    ctx.clearRect(0, 0, width, height);
 
     ctx.drawImage(img, centerWidth, centerHeight, newWidth, newHeight);
   };
@@ -54,13 +64,12 @@ const CanvasComponent = ({ file }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    
 
     const { width } = context.canvas;
     const { height } = context.canvas;
+    console.log(width, height);
 
     if (file) {
-        setDpi();
       let reader = new FileReader();
       //   console.log("reader", reader);
 
@@ -82,7 +91,6 @@ const CanvasComponent = ({ file }) => {
 
   return (
     <div>
-      
       <label htmlFor="scaleImage">Scale</label>
       <input
         type="range"
@@ -93,7 +101,12 @@ const CanvasComponent = ({ file }) => {
         max="100"
         onChange={scaleImageHandler}
       />
-      <canvas ref={canvasRef} className="canvas-preview"></canvas>
+      <canvas
+        ref={canvasRef}
+        width={canvasSize.width * canvasSize.dpi}
+        height={canvasSize.height * canvasSize.dpi}
+        className="canvas-preview"
+      ></canvas>
       <br></br>
       {file && (
         <div>
