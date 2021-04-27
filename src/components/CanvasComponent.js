@@ -4,19 +4,21 @@ const CanvasComponent = ({ file }) => {
   const [imageFile, setImageFile] = useState({});
   const [imageScale, setImageScale] = useState(100);
 
+  const dpi = window.devicePixelRatio;
+  console.log('dpi >', dpi)
+
   //   console.log(file)
   const canvasRef = useRef(null);
 
   const updateCanvas = (ctx, img, width, height) => {
     ctx.clearRect(0, 0, width, height);
-
+    
     // Get image aspectRatio from img.width / img.height
     const aspectRatio = img.width / img.height;
-    // console.log('aspectRatio >', aspectRatio);
 
-    // Set a scale factor and resize the iamge
-    let scale = imageScale * 0.001;
-    console.log(scale)
+    // Set a scale factor and resize the image
+    let scale = imageScale;
+    console.log('scale >', scale)
     const newWidth = img.height * aspectRatio * scale;
     const newHeight = (img.width / aspectRatio) * scale;
 
@@ -28,7 +30,7 @@ const CanvasComponent = ({ file }) => {
   };
 
   const scaleImageHandler = (e) => {
-    setImageScale(e.target.value);
+    setImageScale(e.target.value * 0.01);
   };
 
   useEffect(() => {
@@ -71,7 +73,7 @@ const CanvasComponent = ({ file }) => {
         name="scaleImage"
         id="scale-img"
         className="slider-scale"
-        min="0"
+        min="1"
         max="100"
         onChange={scaleImageHandler}
       />
