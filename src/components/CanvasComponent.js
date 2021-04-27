@@ -11,6 +11,9 @@ const CanvasComponent = ({ file }) => {
 
     console.log('imgW, imgH > ', img.width, img.height);
 
+    const aspectRatio = img.width / img.height;
+    console.log('aspectRatio >', aspectRatio);
+
     const centerWidth = (width / 2) - (img.width / 2);
     const centerHeight = (height / 2) - (img.height / 2);
 
