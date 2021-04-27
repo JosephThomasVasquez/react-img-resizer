@@ -5,20 +5,20 @@ const CanvasComponent = ({ file }) => {
   const [imageScale, setImageScale] = useState(100);
 
   const dpi = window.devicePixelRatio;
-  console.log('dpi >', dpi)
+  console.log("dpi >", dpi);
 
   //   console.log(file)
   const canvasRef = useRef(null);
 
   const updateCanvas = (ctx, img, width, height) => {
     ctx.clearRect(0, 0, width, height);
-    
+
     // Get image aspectRatio from img.width / img.height
     const aspectRatio = img.width / img.height;
 
     // Set a scale factor and resize the image
     let scale = imageScale;
-    console.log('scale >', scale)
+    console.log("scale >", scale);
     const newWidth = img.height * aspectRatio * scale;
     const newHeight = (img.width / aspectRatio) * scale;
 
@@ -42,7 +42,7 @@ const CanvasComponent = ({ file }) => {
 
     if (file) {
       let reader = new FileReader();
-    //   console.log("reader", reader);
+      //   console.log("reader", reader);
 
       reader.onload = (e) => {
         let imgFile = new Image();
@@ -55,19 +55,26 @@ const CanvasComponent = ({ file }) => {
       reader.readAsDataURL(file);
 
       setImageFile({ ...file });
-    //   console.log(imageFile);
+      //   console.log(imageFile);
       //   updateCanvas(context);
     }
   }, [file, imageScale]);
 
   return (
     <div>
-      <img
-        className="img-file"
-        src={file && file.url}
-        alt={file && file.name}
-      />
+      {file && (
+        <div>
+          <img
+            className="img-file"
+            src={file && file.url}
+            alt={file && file.name}
+          />
+          <p>{file.size}</p>
+        </div>
+      )}
+
       <br></br>
+      <label htmlFor="scaleImage">Scale</label>
       <input
         type="range"
         name="scaleImage"
