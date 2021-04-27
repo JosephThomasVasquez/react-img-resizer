@@ -1,5 +1,5 @@
 :root {
-  --primary-color: hsl(261, 100%, 50%);
+  --primary-color: rgb(89, 0, 255);
 }
 
 body {
@@ -137,7 +137,34 @@ input[type="text"]:focus:hover {
   width: 400px;
   text-align: center;
   margin: 0 auto;
-  padding: 10px;
+  padding: 0;
+}
+
+input[type='range'] {
+  overflow: hidden;
+  width: 400px;
+  -webkit-appearance: none;
+  background-color: #ccc;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 10px;
+  -webkit-appearance: none;
+  color: var(--primary-color);
+  margin-top: -1px;
+  border-radius: 10px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  width: 10px;
+  -webkit-appearance: none;
+  height: 10px;
+  cursor: ew-resize;
+  background: white;
+  border-radius: 50%;
+  box-shadow: -400px 0 0 400px var(--primary-color);
 }
 
 .img-file {

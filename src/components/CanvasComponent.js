@@ -53,7 +53,7 @@ const CanvasComponent = ({ file }) => {
       reader.readAsDataURL(file);
 
       setImageFile({ ...file });
-      console.log(imageFile);
+    //   console.log(imageFile);
       //   updateCanvas(context);
     }
   }, [file, imageScale]);
