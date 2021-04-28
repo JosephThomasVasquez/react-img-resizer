@@ -30,13 +30,13 @@ const FileComponent = () => {
             multiple
           />
         </label>
-        <div id={files.length > 0 && "file-selector-name"}>
+        <div id={files.length > 0 ? "file-selector-name" : "none"}>
           <ul>
             {files &&
               files.map((file) => (
                 <li key={file.name}>
                   <div className="file-preview">
-                    <img className="img-preview" src={file.url} />
+                    <img className="img-preview" src={file.url} alt={file.name} />
                     <span>{file.name}</span>
                     <span>{file.type}</span>
                     <span>{file.size}</span>
